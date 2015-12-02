@@ -1,0 +1,127 @@
+body, html{
+  padding: 0;
+  margin: 0;
+}
+
+#barcodeEditor{
+  padding: 50px;
+  background-color: #d3d3d3;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  .pageHandler{
+    background-color: #f1f1f1;
+    float: left;
+    .page{
+      background-color: #ffffff;
+      position: relative;
+      a.rule{
+        display: block;
+        position: absolute;
+        z-index: 10;
+        span{
+          display: inline-block;
+          position: relative;
+        }
+        &.right, &.left{
+          height: 100%;
+          width: 0;
+          top: 0;
+          border-left: 1px dashed #000;
+        }
+        &.top, &.bottom{
+          height: 0;
+          width: 100%;
+          left: 0;
+          border-top: 1px dashed #000;
+          text-align: center;
+        }
+        &.right{
+          span{
+            left: 5px;
+          }
+        }
+        &.left{
+          span{
+            right: 25px;
+          }
+        }
+        &.top{
+          span{
+            bottom: 20px;
+          }
+        }
+        &.bottom{
+          span{
+            top: 5px;
+          }
+        }
+      }
+      .items{
+        overflow: hidden;
+        font-size: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 8;
+        background-color: #e4f5ff;
+        .item{
+          border-collapse: collapse;
+          box-sizing: border-box;
+          font-size: 14px;
+          width: 400px;
+          height: 150px;
+          display: inline-block;
+          background-color: #ffffff;
+          position: relative;
+          text-align: center;
+          vertical-align: middle;
+          outline: 1px solid #d8d8d8;
+          .wrap{
+            display: table;
+            width: 100%;
+            height: 100%;
+            .cell{
+              display: table-cell;
+              vertical-align: middle;
+              p{
+                margin: 5px 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .parameters{
+    float: left;
+    padding-left: 20px;
+    .param{
+      margin-bottom: 10px;
+      label{
+        display: block;
+      }
+      .postfix{
+        font-size: 12px;
+        color: #80828b;
+      }
+    }
+  }
+  .clear{
+    clear: both;
+    float: none;
+    display: block;
+    width: 100%;
+  }
+  .ui-resizable-n{
+    top: 0;
+  }
+  .ui-resizable-e{
+    right: 0;
+  }
+  .ui-resizable-w{
+    left: 0;
+  }
+  .ui-resizable-s{
+    bottom: 0;
+  }
+}

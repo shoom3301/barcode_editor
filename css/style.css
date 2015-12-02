@@ -1,0 +1,95 @@
+body, html {
+  padding: 0;
+  margin: 0; }
+
+#barcodeEditor {
+  padding: 50px;
+  background-color: #d3d3d3;
+  font-family: Arial, sans-serif;
+  font-size: 14px; }
+  #barcodeEditor .pageHandler {
+    background-color: #f1f1f1;
+    float: left; }
+    #barcodeEditor .pageHandler .page {
+      background-color: #ffffff;
+      position: relative; }
+      #barcodeEditor .pageHandler .page a.rule {
+        display: block;
+        position: absolute;
+        z-index: 10; }
+        #barcodeEditor .pageHandler .page a.rule span {
+          display: inline-block;
+          position: relative; }
+        #barcodeEditor .pageHandler .page a.rule.right, #barcodeEditor .pageHandler .page a.rule.left {
+          height: 100%;
+          width: 0;
+          top: 0;
+          border-left: 1px dashed #000; }
+        #barcodeEditor .pageHandler .page a.rule.top, #barcodeEditor .pageHandler .page a.rule.bottom {
+          height: 0;
+          width: 100%;
+          left: 0;
+          border-top: 1px dashed #000;
+          text-align: center; }
+        #barcodeEditor .pageHandler .page a.rule.right span {
+          left: 5px; }
+        #barcodeEditor .pageHandler .page a.rule.left span {
+          right: 25px; }
+        #barcodeEditor .pageHandler .page a.rule.top span {
+          bottom: 20px; }
+        #barcodeEditor .pageHandler .page a.rule.bottom span {
+          top: 5px; }
+      #barcodeEditor .pageHandler .page .items {
+        overflow: hidden;
+        font-size: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 8;
+        background-color: #e4f5ff; }
+        #barcodeEditor .pageHandler .page .items .item {
+          border-collapse: collapse;
+          box-sizing: border-box;
+          font-size: 14px;
+          width: 400px;
+          height: 150px;
+          display: inline-block;
+          background-color: #ffffff;
+          position: relative;
+          text-align: center;
+          vertical-align: middle;
+          outline: 1px solid #d8d8d8; }
+          #barcodeEditor .pageHandler .page .items .item .wrap {
+            display: table;
+            width: 100%;
+            height: 100%; }
+            #barcodeEditor .pageHandler .page .items .item .wrap .cell {
+              display: table-cell;
+              vertical-align: middle; }
+              #barcodeEditor .pageHandler .page .items .item .wrap .cell p {
+                margin: 5px 0; }
+  #barcodeEditor .parameters {
+    float: left;
+    padding-left: 20px; }
+    #barcodeEditor .parameters .param {
+      margin-bottom: 10px; }
+      #barcodeEditor .parameters .param label {
+        display: block; }
+      #barcodeEditor .parameters .param .postfix {
+        font-size: 12px;
+        color: #80828b; }
+  #barcodeEditor .clear {
+    clear: both;
+    float: none;
+    display: block;
+    width: 100%; }
+  #barcodeEditor .ui-resizable-n {
+    top: 0; }
+  #barcodeEditor .ui-resizable-e {
+    right: 0; }
+  #barcodeEditor .ui-resizable-w {
+    left: 0; }
+  #barcodeEditor .ui-resizable-s {
+    bottom: 0; }
+
+/*# sourceMappingURL=style.css.map */
