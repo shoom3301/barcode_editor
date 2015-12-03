@@ -306,13 +306,6 @@
                     pos.right = mm(model.get('pageWidth'))-(pos.left+ui.size.width);
                     pos.bottom = mm(model.get('pageHeight'))-(pos.top+ui.size.height);
 
-                    model.set({
-                        topBorder: pos.top,
-                        rightBorder: pos.right,
-                        bottomBorder: pos.bottom,
-                        leftBorder: pos.left
-                    }, {silent: true});
-
                     //bind update corners
                     eachCorners(function(type){
                         model.updateBorderValue(type, px(pos[type]));
