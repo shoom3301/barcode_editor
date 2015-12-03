@@ -1,7 +1,7 @@
 {
   "name": "barcodeEditor",
   "description": "Editor for print barcode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": [
     "dist/barcode_editor.js",
     "dist/css/style.scss"
