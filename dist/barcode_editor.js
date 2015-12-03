@@ -1,12 +1,17 @@
-_.mixin({
-    capitalize : function(string) {
-        return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+(function(factory){
+    if (typeof define === "function" && define.amd) {
+        define(["jquery", "underscore", "backbone", "jquery-ui/resizable"], factory);
+    } else if (typeof exports === 'object') {
+        factory(require("jquery", "underscore", "backbone", "jquery-ui/resizable"));
+    } else {
+        factory(jQuery, _, Backbone);
     }
-});
-
-$(function(){
+})(function($, _, Backbone){
+    //1 mm = 3.779528 px
     var MM = 3.779528;
+    //1 px = 0.264583 mm
     var PX = 0.264583;
+    //shortcuts
     var right = 'right', left = 'left', top = 'top', bottom = 'bottom';
     var direction = {
         left: 'width',
@@ -21,13 +26,37 @@ $(function(){
         top: 'bottom'
     };
 
+    /**
+     * Px to mm
+     * @param val {int}
+     * @returns {number}
+     */
     function mm(val){
         return val*MM;
     }
+
+    /**
+     * Mm to px
+     * @param val
+     * @returns {number}
+     */
     function px(val){
         return val*PX;
     }
 
+    /**
+     * Capitalize string
+     * @param string {string}
+     * @returns {string}
+     */
+    function capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+    }
+
+    /**
+     * Cycle for 4 corners
+     * @param cb {function}
+     */
     function eachCorners(cb){
         var a = [left, right, top, bottom];
         for(var i=0; i< a.length; i++){
@@ -35,23 +64,49 @@ $(function(){
         }
     }
 
+    /**
+     * Barcode editor classs
+     * @constructor
+     */
     var BarcodeEditor = Backbone.Model.extend({
+        //barcode items
         items: [],
-        initialize: function(a){
+        /**
+         *
+         * @param params {object}
+         *
+         *   selector: '#barcodeEditor'
+         *   pageWidth: 210(mm)
+         *   pageHeight: 230(mm)
+         *   topBorder: 5(mm)
+         *   rightBorder: 5(mm)
+         *   bottomBorder: 5(mm)
+         *   leftBorder: 5(mm)
+         *   fontSize: 12(px)
+         *   imageWidth: 100(mm)
+         *   itemWidth: 150(mm)
+         *   itemHeight: 50(mm)
+         *   text: 'Съеш еще этих мягких булок'
+         *   itemsCount: 3,
+         *   barcodeImage: 'dist/barcode.png',
+         *
+         */
+        initialize: function(params){
             var self = this;
 
+            //bind change listener for borders
             eachCorners(function(type){
                 self.on('change:'+type+'Border', function(_self, value){
                     if(_self != self) value = _self;
                     if(value){
-                        self.updateValue(type, value);
+                        self.updateBorderValue(type, value);
 
                         if(type == left || type == top){
                             self.view.$items.css(type, mm(value));
                         }
 
                         var val =
-                            self.get('page'+ _.capitalize(direction[type]))
+                            self.get('page'+ capitalize(direction[type]))
                             - self.get(oppositeCorner[type]+'Border')
                             - value;
 
@@ -60,6 +115,7 @@ $(function(){
                 });
             });
 
+            //listen change page height
             this.on('change:pageHeight', function(_self, value){
                 if(_self != self) value = _self;
                 if(value){
@@ -75,6 +131,7 @@ $(function(){
                 }
             });
 
+            //listen change page width
             this.on('change:pageWidth', function(_self, value){
                 if(_self != self) value = _self;
                 this.view.$page.width(mm(value));
@@ -85,6 +142,7 @@ $(function(){
                 this.view.setParam('pageWidth', value);
             });
 
+            //listen change barcode items count
             this.on('change:itemsCount', function(_self, value){
                 if(_self != self) value = _self;
                 if(value<0){
@@ -105,37 +163,38 @@ $(function(){
                 this.view.setParam('itemsCount', value);
             });
 
-            this.on('change:fontSize', function(){
-                this.view.setParam('fontSize', this.get('fontSize'));
-                this.updateItems();
-            });
-            this.on('change:imageWidth', function(){
-                this.view.setParam('imageWidth', this.get('imageWidth'));
-                this.updateItems();
-            });
-            this.on('change:itemWidth', function(){
-                this.view.setParam('itemWidth', this.get('itemWidth'));
-                this.updateItems();
-            });
-            this.on('change:itemHeight', function(){
-                this.view.setParam('itemHeight', this.get('itemHeight'));
-                this.updateItems();
-            });
-            this.on('change:text', function(){
-                this.view.setParam('text', this.get('text'));
-                this.updateItems();
+            //listen change barcode item style
+            _.each(['fontSize', 'imageWidth', 'itemWidth', 'itemHeight', 'text'], function(type){
+                self.on('change:'+type, function(){
+                    self.view.setParam(type, self.get(type));
+                    self.updateItems();
+                });
             });
 
+            /**
+             * View of editor
+             * @type {BarcodeEditorView}
+             */
             this.view = new BarcodeEditorView({model: this, el: $(this.get('selector'))});
             this.view.render();
 
-            this.clear().set(a);
+            /**
+             * Trigger all change listeners
+             */
+            this.clear().set(params);
         },
+        /**
+         * Update items styling
+         */
         updateItems: function(){
             for(var i=0; i<this.items.length;i++){
                 this.items[i].setStyle(this.getItemStyle());
             }
         },
+        /**
+         * Object of item style
+         * @returns {object}
+         */
         getItemStyle: function(){
             return {
                 fontSize: this.get('fontSize'),
@@ -145,36 +204,67 @@ $(function(){
                 text: this.get('text')
             };
         },
-        updateValue: function(type, value){
+        /**
+         * Update borders value
+         * @param type {string} border name (top|left...)
+         * @param value {int} value
+         */
+        updateBorderValue: function(type, value){
             this.view.rules[type].css(type, mm(value)).html('<span>'+parseInt(value)+'</span>');
             this.view.setParam(type+'Border', value);
         },
+        /**
+         * Add new barcode item
+         */
         addItem: function(){
-            var item = new BarcodeItem();
+            var params = {};
+            var imgsrc = this.get('barcodeImage');
+            if(imgsrc){
+                params.src = imgsrc;
+            }
+            var item = new BarcodeItem(params);
             item.render();
             item.setStyle(this.getItemStyle());
             this.view.$items.append(item.$el);
             this.items.push(item);
         },
+        /**
+         * Pop one barcode item
+         */
         popItem: function(){
             this.items[this.items.length-1].remove();
             this.items.pop();
         }
     });
 
+    /**
+     * Barcode item view
+     * @constructor
+     */
     var BarcodeItem = Backbone.View.extend({
         className: 'item',
         template:
-        '<div class="wrap">\
-            <div class="cell">\
-                <p></p>\
-                <img src="images/barcode.png">\
-            </div>\
-        </div>',
-
+            '<div class="wrap">\
+                <div class="cell">\
+                    <p></p>\
+                    <img>\
+                </div>\
+            </div>',
+        initialize: function(options){
+            this.options = options;
+        },
+        /**
+         * Rendering barcode item
+         */
         render: function(){
             this.$el.html(_.template(this.template)());
+            this.$el.find('img').attr('src', (this.options.src || 'dist/barcode.png'));
         },
+        /**
+         * Set style to barcode item
+         * @param style {object}
+         * @see BarcodeEditor.getItemStyle
+         */
         setStyle: function(style){
             this.$el.css({
                 width: mm(style.width),
@@ -185,6 +275,10 @@ $(function(){
         }
     });
 
+    /**
+     * View of barcode editor
+     * @constructor
+     */
     var BarcodeEditorView = Backbone.View.extend({
         initialize: function(){
             this.$page = this.$('.pageHandler .page');
@@ -203,6 +297,7 @@ $(function(){
             var self = this;
             var model = this.model;
 
+            //Make items block resizable
             this.$items.resizable({
                 handles: 'n, e, s, w',
                 containment: "parent",
@@ -218,12 +313,14 @@ $(function(){
                         leftBorder: pos.left
                     }, {silent: true});
 
+                    //bind update corners
                     eachCorners(function(type){
-                        model.updateValue(type, px(pos[type]));
+                        model.updateBorderValue(type, px(pos[type]));
                     });
                 }
             });
 
+            //bind params inputs chamge to model change
             this.$params.change(function(){
                 var $th = $(this);
                 var val = $th.val();
@@ -233,6 +330,11 @@ $(function(){
                 model.set($th.attr('name'), val);
             });
         },
+        /**
+         * Set parameter to input
+         * @param name {string} name
+         * @param val {*} value
+         */
         setParam: function(name, val){
             var $el = this.$params.filter('[name="'+name+'"]');
             if($el.attr('type')=='number') val = parseInt(val);
@@ -240,19 +342,11 @@ $(function(){
         }
     });
 
-    window.a = new BarcodeEditor({
-        selector: '#barcodeEditor',
-        pageWidth: 210,
-        pageHeight: 230,
-        topBorder: 5,
-        rightBorder: 5,
-        bottomBorder: 5,
-        leftBorder: 5,
-        fontSize: 12,
-        imageWidth: 100,
-        itemWidth: 150,
-        itemHeight: 50,
-        text: 'Съеш еще этих мягких булок',
-        itemsCount: 3
-    });
+    window.BarcodeEditor = {
+        Model: BarcodeEditor,
+        View: BarcodeEditorView,
+        ItemView: BarcodeItem
+    };
+
+    return window.BarcodeEditor.Model;
 });

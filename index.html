@@ -5,19 +5,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="copyright" content="Shoom" />
 
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="css/style.css" type="text/css" />
-	<link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-
-<script type="text/javascript" src="lib/jquery-min.js"></script>
-	<script type="text/javascript" src="lib/jquery-ui.min.js"></script>
-<script type="text/javascript" src="lib/underscore-min.js"></script>
-<script type="text/javascript" src="lib/backbone-min.js"></script>
-
-<script type="text/javascript" src="js/main.js" charset="utf-8"></script>
+<link rel="stylesheet" href="dist/css/style.css" type="text/css" />
+<script type="text/javascript" src="require.js"></script>
 </head>
 <body>
 	<div id="main">
+		<!-- Barcode editor template -->
 		<div id="barcodeEditor">
 			<div class="pageHandler">
 				<div class="page">
@@ -32,52 +25,52 @@
 			<div class="parameters">
 				<div class="param">
 					<label>Page height:</label>
-					<input type="number" name="pageHeight"/>
+					<input min="0" type="number" name="pageHeight"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Page width:</label>
-					<input type="number" name="pageWidth"/>
+					<input min="0" type="number" name="pageWidth"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Top:</label>
-					<input type="number" name="topBorder"/>
+					<input min="0" type="number" name="topBorder"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Right:</label>
-					<input type="number" name="rightBorder"/>
+					<input min="0" type="number" name="rightBorder"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Bottom:</label>
-					<input type="number" name="bottomBorder"/>
+					<input min="0" type="number" name="bottomBorder"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Left:</label>
-					<input type="number" name="leftBorder"/>
+					<input min="0" type="number" name="leftBorder"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Font-size:</label>
-					<input type="number" name="fontSize"/>
+					<input min="0" type="number" name="fontSize"/>
 					<span class="postfix">pt</span>
 				</div>
 				<div class="param">
 					<label>Barcode width:</label>
-					<input type="number" name="imageWidth"/>
+					<input min="0" type="number" name="imageWidth"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Block width:</label>
-					<input type="number" name="itemWidth"/>
+					<input min="0" type="number" name="itemWidth"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
 					<label>Block height:</label>
-					<input type="number" name="itemHeight"/>
+					<input min="0" type="number" name="itemHeight"/>
 					<span class="postfix">mm</span>
 				</div>
 				<div class="param">
@@ -91,6 +84,44 @@
 			</div>
 			<div class="clear"></div>
 		</div>
+		<!-- Barcode editor template -->
 	</div>
+
+	<script>
+		requirejs.config({
+			paths: {
+				"jquery": "bower_components/jquery/dist/jquery.min",
+				"underscore": "bower_components/underscore/underscore-min",
+				"backbone": "bower_components/backbone/backbone-min",
+				"jquery-ui/core": "bower_components/jquery-ui/ui/core",
+				"jquery-ui/mouse": "bower_components/jquery-ui/ui/mouse",
+				"jquery-ui/widget": "bower_components/jquery-ui/ui/widget",
+				"jquery-ui/resizable": "bower_components/jquery-ui/ui/resizable",
+				"barcodeEditor": "dist/barcode_editor"
+			},
+			shim:{
+				"jquery-ui/resizable": ["jquery-ui/core", "jquery-ui/mouse", "jquery-ui/widget"]
+			}
+		});
+
+		require(["barcodeEditor"], function(BarcodeEditor){
+			var editor = new BarcodeEditor({
+				selector: '#barcodeEditor',
+				pageWidth: 210,
+				pageHeight: 230,
+				topBorder: 5,
+				rightBorder: 5,
+				bottomBorder: 5,
+				leftBorder: 5,
+				fontSize: 12,
+				imageWidth: 100,
+				itemWidth: 150,
+				itemHeight: 50,
+				text: 'Съеш еще этих мягких булок',
+				barcodeImage: 'dist/barcode.png',
+				itemsCount: 3
+			});
+		});
+	</script>
 </body>
 </html>

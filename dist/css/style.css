@@ -83,13 +83,63 @@ body, html {
     float: none;
     display: block;
     width: 100%; }
+  #barcodeEditor .ui-resizable {
+    position: relative; }
+  #barcodeEditor .ui-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+    -ms-touch-action: none;
+    touch-action: none; }
+  #barcodeEditor .ui-resizable-disabled .ui-resizable-handle, #barcodeEditor .ui-resizable-autohide .ui-resizable-handle {
+    display: none; }
   #barcodeEditor .ui-resizable-n {
-    top: 0; }
-  #barcodeEditor .ui-resizable-e {
-    right: 0; }
-  #barcodeEditor .ui-resizable-w {
+    cursor: n-resize;
+    height: 7px;
+    width: 100%;
+    top: 0;
     left: 0; }
   #barcodeEditor .ui-resizable-s {
-    bottom: 0; }
+    cursor: s-resize;
+    height: 7px;
+    width: 100%;
+    bottom: 0;
+    left: 0; }
+  #barcodeEditor .ui-resizable-e {
+    cursor: e-resize;
+    width: 7px;
+    right: 0;
+    top: 0;
+    height: 100%; }
+  #barcodeEditor .ui-resizable-w {
+    cursor: w-resize;
+    width: 7px;
+    left: 0;
+    top: 0;
+    height: 100%; }
+  #barcodeEditor .ui-resizable-se {
+    cursor: se-resize;
+    width: 12px;
+    height: 12px;
+    right: 1px;
+    bottom: 1px; }
+  #barcodeEditor .ui-resizable-sw {
+    cursor: sw-resize;
+    width: 9px;
+    height: 9px;
+    left: -5px;
+    bottom: -5px; }
+  #barcodeEditor .ui-resizable-nw {
+    cursor: nw-resize;
+    width: 9px;
+    height: 9px;
+    left: -5px;
+    top: -5px; }
+  #barcodeEditor .ui-resizable-ne {
+    cursor: ne-resize;
+    width: 9px;
+    height: 9px;
+    right: -5px;
+    top: -5px; }
 
 /*# sourceMappingURL=style.css.map */

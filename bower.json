@@ -1,0 +1,31 @@
+{
+  "name": "barcodeEditor",
+  "description": "Editor for print barcode",
+  "version": "0.0.1",
+  "main": [
+    "dist/barcode_editor.js",
+    "dist/css/style.scss"
+  ],
+  "dependencies": {
+    "jquery": ">=2",
+    "underscore": ">=1.7",
+    "backbone": ">=1",
+    "jquery-ui": ">=1.11"
+  },
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "barcode",
+    "editor",
+    "page",
+    "print"
+  ],
+  "authors": [
+    "Shoom <shoom3301@gmail.com>"
+  ],
+  "ignore": [
+  ],
+  "license": "MIT",
+  "private": false
+}
