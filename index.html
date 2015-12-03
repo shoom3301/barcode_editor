@@ -11,7 +11,7 @@
 <body>
 	<div id="main">
 		<!-- Barcode editor template -->
-		<div id="barcodeEditor">
+		<div id="barcodeEditor1" class="barcodeEditor">
 			<div class="pageHandler">
 				<div class="page">
 					<a class="rule top"></a>
@@ -88,6 +88,25 @@
 			<div class="clear"></div>
 		</div>
 		<!-- Barcode editor template -->
+
+		<div id="barcodeEditor2" class="barcodeEditor">
+			<div class="pageHandler">
+				<div class="page">
+					<a class="rule top"></a>
+					<a class="rule right"></a>
+					<a class="rule bottom"></a>
+					<a class="rule left"></a>
+
+					<div class="items"></div>
+				</div>
+			</div>
+			<div class="parameters">
+				<div class="param">
+					<button class="print">Print</button>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
 	</div>
 
 	<script>
@@ -110,8 +129,8 @@
 		});
 
 		require(["barcodeEditor"], function(BarcodeEditor){
-			window.editor = new BarcodeEditor({
-				selector: '#barcodeEditor',
+			window.editor1 = new BarcodeEditor({
+				selector: '#barcodeEditor1',
 				pageWidth: 210,
 				pageHeight: 230,
 				topBorder: 5,
@@ -123,9 +142,25 @@
 				itemWidth: 150,
 				itemHeight: 50,
 				text: 'Съеш еще этих мягких булок',
-				items: [{image: ''}],
 				barcodeImage: 'dist/barcode.png',
 				itemsCount: 3
+			});
+
+			window.editor2 = new BarcodeEditor({
+				selector: '#barcodeEditor2',
+				pageWidth: 210,
+				pageHeight: 230,
+				topBorder: 5,
+				rightBorder: 5,
+				bottomBorder: 5,
+				leftBorder: 5,
+				fontSize: 12,
+				imageWidth: 80,
+				itemWidth: 100,
+				itemHeight: 30,
+				text: 'Съеш еще этих мягких булок',
+				barcodeImage: 'dist/barcode.png',
+				itemsCount: 10
 			});
 		});
 	</script>

@@ -3,7 +3,7 @@ body, html{
   margin: 0;
 }
 
-#barcodeEditor{
+.barcodeEditor{
   padding: 50px;
   background-color: #d3d3d3;
   font-family: Arial, sans-serif;
@@ -137,7 +137,8 @@ body, html{
     margin: 0mm;
   }
 
-  #barcodeEditor{
+  .barcodeEditor{
+    visibility: visible;
     padding: 0;
     margin: 0;
     .parameters{
