@@ -59,7 +59,7 @@ require(["barcodeEditor"], function(BarcodeEditor){
 				imageWidth: 100,
 				itemWidth: 150,
 				itemHeight: 50,
-				text: 'Съеш еще этих мягких булок',
+				text: 'Съешь еще этих мягких булок',
 				barcodeImage: 'dist/barcode.png',
 				itemsCount: 3
 			});
