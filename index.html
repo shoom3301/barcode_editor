@@ -81,6 +81,9 @@
 					<label>Items count:</label>
 					<input min="0" type="number" name="itemsCount"/>
 				</div>
+				<div class="param">
+					<button class="print">Print</button>
+				</div>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -97,15 +100,17 @@
 				"jquery-ui/mouse": "bower_components/jquery-ui/ui/mouse",
 				"jquery-ui/widget": "bower_components/jquery-ui/ui/widget",
 				"jquery-ui/resizable": "bower_components/jquery-ui/ui/resizable",
+				"jQuery.print": "bower_components/jQuery.print/jQuery.print",
 				"barcodeEditor": "dist/barcode_editor"
 			},
 			shim:{
-				"jquery-ui/resizable": ["jquery-ui/core", "jquery-ui/mouse", "jquery-ui/widget"]
+				"jquery-ui/resizable": ["jquery-ui/core", "jquery-ui/mouse", "jquery-ui/widget"],
+				"jQuery.print": ["jquery"]
 			}
 		});
 
 		require(["barcodeEditor"], function(BarcodeEditor){
-			var editor = new BarcodeEditor({
+			window.editor = new BarcodeEditor({
 				selector: '#barcodeEditor',
 				pageWidth: 210,
 				pageHeight: 230,
@@ -118,6 +123,7 @@
 				itemWidth: 150,
 				itemHeight: 50,
 				text: 'Съеш еще этих мягких булок',
+				items: [{image: ''}],
 				barcodeImage: 'dist/barcode.png',
 				itemsCount: 3
 			});

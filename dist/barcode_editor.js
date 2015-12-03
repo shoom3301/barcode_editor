@@ -1,8 +1,8 @@
 (function(factory){
     if (typeof define === "function" && define.amd) {
-        define(["jquery", "underscore", "backbone", "jquery-ui/resizable"], factory);
+        define(["jquery", "underscore", "backbone", "jquery-ui/resizable", "jQuery.print"], factory);
     } else if (typeof exports === 'object') {
-        factory(require("jquery", "underscore", "backbone", "jquery-ui/resizable"));
+        factory(require("jquery", "underscore", "backbone", "jquery-ui/resizable", "jQuery.print"));
     } else {
         factory(jQuery, _, Backbone);
     }
@@ -280,6 +280,9 @@
      * @constructor
      */
     var BarcodeEditorView = Backbone.View.extend({
+        events: {
+            'click button.print': 'print'
+        },
         initialize: function(){
             this.$page = this.$('.pageHandler .page');
             this.$items = this.$page.children('.items');
@@ -322,6 +325,12 @@
                 }
                 model.set($th.attr('name'), val);
             });
+        },
+        /**
+         * Print page
+         */
+        print: function(){
+            this.$el.print({});
         },
         /**
          * Set parameter to input

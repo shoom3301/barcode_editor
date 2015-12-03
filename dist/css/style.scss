@@ -124,3 +124,36 @@ body, html{
   .ui-resizable-nw{cursor:nw-resize;width:9px;height:9px;left:-5px;top:-5px}
   .ui-resizable-ne{cursor:ne-resize;width:9px;height:9px;right:-5px;top:-5px}
 }
+
+@media print{
+  @page{
+    size: auto;
+    margin: 0mm;
+  }
+
+  body{
+    background-color:#FFFFFF;
+    border: solid 1px black ;
+    margin: 0mm;
+  }
+
+  #barcodeEditor{
+    padding: 0;
+    margin: 0;
+    .parameters{
+      display: none;
+    }
+    .pageHandler{
+      .page{
+        a.rule{
+          display: none;
+        }
+        .items{
+          .item{
+            outline: 0;
+          }
+        }
+      }
+    }
+  }
+}

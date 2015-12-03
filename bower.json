@@ -1,7 +1,7 @@
 {
   "name": "barcodeEditor",
   "description": "Editor for print barcode",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": [
     "dist/barcode_editor.js",
     "dist/css/style.scss"
@@ -10,7 +10,8 @@
     "jquery": ">=2",
     "underscore": ">=1.7",
     "backbone": ">=1",
-    "jquery-ui": ">=1.11"
+    "jquery-ui": ">=1.11",
+    "jQuery.print": ">=1.3.3"
   },
   "moduleType": [
     "amd"
