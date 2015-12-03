@@ -13,6 +13,36 @@ Or rerender view:
 editor.view.render();
 ```
 
+## Options
+
+`selector` - selector to template. Example: `#barcodeEditor`
+
+`pageWidth` - start width of page (mm). Example: `210`
+
+`pageHeight` - start height of page (mm). Example: `230`
+
+`topBorder` - margin of top border (mm). Example: `5`
+
+`rightBorder` - margin of right border (mm). Example: `5`
+
+`bottomBorder` - margin of bottom border (mm). Example: `5`
+
+`leftBorder` - margin of left border (mm). Example: `5`
+
+`fontSize` - font size of barcode text (px). Example: `14`
+
+`imageWidth` - width of barcode image (mm). Example: `50`
+
+`itemWidth` - width of barcode item (mm). Example: `80`
+
+`itemHeight` - height of barcode item (mm). Example: `40`
+
+`text` - text in barcode item. Example: `Мать писала, на войне был`
+
+`barcodeImage` - url to barcode image. Example: `images/barcode.png`, default: `dist/barcode.png`
+
+`itemsCount` - start count of barcode items. Example: `3`
+
 ## Example
 
 ```js
@@ -112,33 +142,3 @@ require(["barcodeEditor"], function(BarcodeEditor){
     <div class="clear"></div>
 </div>
 ```
-
-## Options
-
-`selector` - selector to template. Example: `#barcodeEditor`
-
-`pageWidth` - start width of page (mm). Example: `210`
-
-`pageHeight` - start height of page (mm). Example: `230`
-
-`topBorder` - margin of top border (mm). Example: `5`
-
-`rightBorder` - margin of right border (mm). Example: `5`
-
-`bottomBorder` - margin of bottom border (mm). Example: `5`
-
-`leftBorder` - margin of left border (mm). Example: `5`
-
-`fontSize` - font size of barcode text (px). Example: `14`
-
-`imageWidth` - width of barcode image (mm). Example: `50`
-
-`itemWidth` - width of barcode item (mm). Example: `80`
-
-`itemHeight` - height of barcode item (mm). Example: `40`
-
-`text` - text in barcode item. Example: `Мать писала, на войне был`
-
-`barcodeImage` - url to barcode image. Example: `images/barcode.png`, default: `dist/barcode.png`
-
-`itemsCount` - start count of barcode items. Example: `3`
