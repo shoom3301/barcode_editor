@@ -147,6 +147,16 @@
                 this.view.setParam('itemsCount', value);
             });
 
+            this.on('change:fontSize', function(_self, value){
+                var $span = $('<span>').html('1').css({
+                    fontSize: value,
+                    fontFamily: 'Courier, monospace'
+                });
+                $('body').append($span);
+                this.set('charWidth', $span.width());
+                $span.remove();
+            });
+
             this.on('destroy', function(){
                 this.view.remove();
             });
@@ -189,6 +199,7 @@
                 width: this.get('itemWidth'),
                 height: this.get('itemHeight'),
                 imageWidth: this.get('imageWidth'),
+                charWidth: this.get('charWidth'),
                 text: this.get('text')
             };
         },
@@ -260,12 +271,20 @@
          * @see BarcodeEditor.getItemStyle
          */
         setStyle: function(style){
+            var width = mm(style.width);
             this.$el.css({
-                width: mm(style.width),
+                width: width,
                 height: mm(style.height)
             });
-            this.$el.find('p').css('fontSize', style.fontSize).text(style.text);
+            this.$el.find('p').css({
+                fontSize: style.fontSize,
+                fontFamily: 'Courier, monospace'
+            }).text(this.strMax(style.text, width/(style.charWidth||10)));
             this.$el.find('img').css('width', mm(style.imageWidth));
+        },
+        strMax: function(str, len){
+            if(!str || !str.length) return '';
+            return (str.length > len)?(str.substr(0, len-2)+'..'):str;
         }
     });
 
