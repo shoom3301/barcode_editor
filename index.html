@@ -120,7 +120,7 @@
 				"jquery-ui/widget": "bower_components/jquery-ui/ui/widget",
 				"jquery-ui/resizable": "bower_components/jquery-ui/ui/resizable",
 				"jQuery.print": "bower_components/jQuery.print/jQuery.print",
-				"barcodeEditor": "dist/barcode_editor"
+				"barcodeEditor": "dist/barcode_editor.min"
 			},
 			shim:{
 				"jquery-ui/resizable": ["jquery-ui/core", "jquery-ui/mouse", "jquery-ui/widget"],
@@ -132,18 +132,18 @@
 			window.editor1 = new BarcodeEditor({
 				selector: '#barcodeEditor1',
 				pageWidth: 210,
-				pageHeight: 230,
+				pageHeight: 297,
 				topBorder: 5,
 				rightBorder: 5,
 				bottomBorder: 5,
 				leftBorder: 5,
 				fontSize: 12,
-				imageWidth: 100,
-				itemWidth: 150,
-				itemHeight: 50,
+				imageWidth: 42,
+				itemWidth: 50,
+				itemHeight: 28,
 				text: 'Съеш еще этих мягких булок',
 				barcodeImage: 'dist/barcode.png',
-				itemsCount: 3
+				itemsCount: 40
 			});
 
 			window.editor2 = new BarcodeEditor({

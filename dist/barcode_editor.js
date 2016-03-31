@@ -236,6 +236,15 @@
         popItem: function(){
             this.items[this.items.length-1].remove();
             this.items.pop();
+        },
+        /**
+         * Count of items in one page
+         * @returns {int}
+         */
+        countInPage: function(){
+            var inRow = Math.floor(this.get('pageWidth')/this.get('itemWidth'));
+            var rowsCount = Math.floor(this.get('pageHeight')/this.get('itemHeight'));
+            return inRow*rowsCount;
         }
     });
 
@@ -343,7 +352,19 @@
          * Print page
          */
         print: function(){
-            this.$el.print({});
+            var model = this.model;
+            var inPage = model.countInPage(), total = model.items.length, currentHeight = model.get('pageHeight');
+            var deferred = $.Deferred();
+
+            model.set('pageHeight', Math.ceil(total/inPage)*currentHeight);
+
+            deferred.then(function(){
+                model.set('pageHeight', currentHeight);
+            });
+
+            this.$el.print({
+                deferred: deferred
+            });
         },
         /**
          * Set parameter to input
