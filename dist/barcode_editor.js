@@ -222,6 +222,7 @@
             if(imgsrc){
                 params.src = options.src || imgsrc;
             }
+            params.attrs = options.attrs || [];
             var item = new BarcodeItem(params);
             item.render();
             item.setStyle(_.extend(this.getItemStyle(), options));
@@ -258,7 +259,14 @@
             '<div class="wrap">\
                 <div class="cell">\
                     <p></p>\
-                    <img>\
+                    <div class="img"><img src="<%= src %>"></div>\
+                    <% if(attrs && attrs.length){ %>\
+                    <div class="attrs">\
+                    <% _.each(attrs, function(attr){ %>\
+                    <div><label><%- attr.title %>: </label><span><%- attr.val %></span></div>\
+                    <% }) %>\
+                    </div>\
+                    <% } %>\
                 </div>\
             </div>',
         initialize: function(options){
@@ -268,9 +276,9 @@
          * Rendering barcode item
          */
         render: function(){
-            this.$el.html(_.template(this.template)());
+            this.$el.html(_.template(this.template)(this.options));
             var self = this;
-            this.$el.find('img').attr('src', (this.options.src || 'dist/barcode.png')).on('load', function(){
+            this.$el.find('img').on('load', function(){
                 self.trigger('imageLoaded');
             });
         },
@@ -280,6 +288,7 @@
          * @see BarcodeEditor.getItemStyle
          */
         setStyle: function(style){
+            var textRowsCount = 2;
             var width = mm(style.width);
             this.$el.css({
                 width: width,
@@ -288,7 +297,7 @@
             this.$el.find('p').css({
                 fontSize: style.fontSize,
                 fontFamily: 'Courier, monospace'
-            }).text(this.strMax(style.text, width/(style.charWidth||10)));
+            }).text(this.strMax(style.text, width*textRowsCount/(style.charWidth||10)));
             this.$el.find('img').css('width', mm(style.imageWidth));
         },
         strMax: function(str, len){

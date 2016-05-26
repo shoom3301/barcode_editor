@@ -85,6 +85,25 @@ body, html{
               vertical-align: middle;
               p{
                 margin: 5px 0;
+                max-height: 28px;
+              }
+            }
+            .img{
+              img{
+                max-height: 80px;
+              }
+            }
+            .attrs{
+              padding: 0 8px;
+              div{
+                font-size: 12px;
+                font-family: Courier, monospace;
+                font-weight: bold;
+                display: inline-block;
+                margin-right: 10px;
+                &:last-child{
+                  margin-right: 0;
+                }
               }
             }
           }

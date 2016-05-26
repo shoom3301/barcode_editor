@@ -67,7 +67,20 @@ body, html {
               display: table-cell;
               vertical-align: middle; }
               .barcodeEditor .pageHandler .page .items .item .wrap .cell p {
-                margin: 5px 0; }
+                margin: 5px 0;
+                max-height: 28px; }
+            .barcodeEditor .pageHandler .page .items .item .wrap .img img {
+              max-height: 80px; }
+            .barcodeEditor .pageHandler .page .items .item .wrap .attrs {
+              padding: 0 8px; }
+              .barcodeEditor .pageHandler .page .items .item .wrap .attrs div {
+                font-size: 12px;
+                font-family: Courier, monospace;
+                font-weight: bold;
+                display: inline-block;
+                margin-right: 10px; }
+                .barcodeEditor .pageHandler .page .items .item .wrap .attrs div:last-child {
+                  margin-right: 0; }
   .barcodeEditor .parameters {
     float: left;
     padding-left: 20px; }
